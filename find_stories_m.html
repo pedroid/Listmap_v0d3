@@ -17,6 +17,10 @@
 <link rel="stylesheet" href="css/find_stories_m.css">
 <script src="js/find_stories_m.js"></script>
 	<style>body { padding: 0; margin: 0; } #map { height: 100%; width: 100vw; }</style>
+	
+	<script type="text/javascript" src="js/leaflet-control-credits.js"></script>
+<link rel="stylesheet" href="css/leaflet-control-credits.css" />
+	
 </head>
 <body>
 
@@ -28,6 +32,12 @@ var mymap = L.map('map').fitWorld();
 var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(mymap);
+
+var credctrl = L.controlCredits({
+    image: "img/greeninfo.png",
+    link: "stories.html",
+    text: "stories"
 }).addTo(mymap);
 
 //var markers = L.markerClusterGroup();
@@ -87,7 +97,7 @@ function addStoriesToLayer(locations) {
     locations.map(item => L.marker(new L.LatLng(item.lat, item.lng)))
         .forEach((marker,i) => {
           markers.addLayer(marker);
-          marker.bindPopup("<b>"+ locations[i].name +"</b><br>" + locations[i].notes).openPopup();
+          marker.bindPopup("<b>landmark:"+ locations[i].name +"</b><br><b>story:</b><a href=\"stories.html\">" + data_json.table_stories[locations[i].story_id] +"</a><br><b>description</b>:" +  locations[i].notes).openPopup();
           }
         );
     global_markers = markers;
@@ -131,6 +141,7 @@ mymap.on('moveend', function() {
 										link: data_json.table[i].link,
 										landmark_id: data_json.table[i].landmark_id,
 										notes: data_json.table[i].notes,
+										story_id: data_json.table[i].story_id,
 								})
 						}
 						console.log(landmarks);
