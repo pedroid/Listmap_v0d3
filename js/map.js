@@ -66,8 +66,32 @@ function addStoriesToLayer(locations) {
     mymap.addLayer(markers)
 }
 
-
+function pngMap(){
+  mymap.remove();
+  var img = new Image();
+  img.onload = function() {
+    //alert(this.width + 'x' + this.height);
+    var bounds = [[0, 0], [this.width, this.height]];
+    mymap = L.map('map', {
+    	crs: L.CRS.Simple,
+    	maxZoom: 1,
+    	minZoom: -4,
+    	maxBounds: bounds
+    });
+    //L.imageOverlay('img/image0.png', bounds).addTo(map2);
+    L.imageOverlay('https://i.imgur.com/x3Wf4tF.jpg', bounds).addTo(mymap);
+    mymap.fitBounds(bounds);
+    mymap.on('zoomend', function() {
+        console.log('zoom to:' + 'level(' + this.getZoom() + ') ' + this.getCenter());
+    });
+    mymap.on('click', function(e) {
+        console.log("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+    });
+  }
+  img.src = 'https://i.imgur.com/x3Wf4tF.jpg';
+}
 function initMap() {
+  
     //mymap = L.map('map').setView([25.1130643, 121.5227629], 7);
     //console.log('test');
     var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {

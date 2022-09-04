@@ -52,6 +52,34 @@
   background-color: #EEEEEE;
 
 }
+#TagList ul {
+   height: 700px;
+    overflow:hiden;
+    scrollbar-width:thin;
+    padding-right:50px;
+}
+#TagList ul::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#TagList ul::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#TagList ul::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+#TagList ul:hover {
+  overflow-y: scroll;
+}
 
 #TagList {
     width:15%;
@@ -62,7 +90,6 @@
     right:30px;
     position: absolute;
     z-index:999;
-    overflow:auto;
     font-size:14px;
     padding-top:10px;
 
