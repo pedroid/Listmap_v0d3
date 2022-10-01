@@ -24,7 +24,18 @@
 
 </head>
 <body>
-
+	<div class='container example-one'>
+	  <header class='example-one-header scroll'>
+	    <span class='logo'>Listmap</span>
+	    <nav class='vertical-align-middle'>
+	      <span class='nav-item'>景點</span>
+	      <span class='nav-item'>餐廳</span>
+	      <span class='nav-item'>住宿</span>
+	      <span class='nav-item'>交通</span>
+	      <span class='nav-item'>博物館</span>
+	    </nav>
+	  </header>
+	</div>
 <div id='map'></div>
 
 <script>
@@ -218,18 +229,22 @@ function addStoriesToLayer(landmarks) {
 				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['hotel']}))
 			}
 			//
-			else if(landmark.name.includes('博物館') ){
+			else if(landmark.name.includes('博物館') | landmark.name.includes('歌劇院') ){
 				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['museum']}))
 			}else if(landmark.name.includes('市場') | landmark.name.includes('公園') | landmark.name.includes('廣場')){
 				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['view']}))
-			}else if(landmark.name.includes('私房菜') | landmark.name.includes('咖啡') | landmark.name.includes('食堂') | landmark.name.includes('飯店') | landmark.name.includes('PIZZA') | landmark.name.includes('古早味')  ){
+			}else if(landmark.name.includes('飯糰') |landmark.name.includes('私房菜') | landmark.name.includes('咖啡') | landmark.name.includes('可頌')  | landmark.name.includes('鰻魚') | landmark.name.includes('食堂') | landmark.name.includes('飯店') | landmark.name.includes('PIZZA') | landmark.name.includes('古早味')  ){
 				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['food']}))
+			}else if(landmark.name.includes('酒店')   ){
+				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['hotel']}))
 			}
 			//
 			else if(landmark.story.includes('米其林') | landmark.story.includes('餐廳') | landmark.story.includes('咖啡') | landmark.story.includes('海產') | landmark.story.includes('美食') ){
 				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['food']}))
 			}else if(landmark.story.includes('書店') | landmark.story.includes('文具店') | landmark.story.includes('景點')){
 				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['view']}))
+			}else if(landmark.story.includes('住宿')){
+				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng),{icon:icons['hotel']}))
 			}else{
 				tmp_markers.push(L.marker(new L.LatLng(landmark.lat, landmark.lng)))
 
