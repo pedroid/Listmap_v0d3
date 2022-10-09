@@ -33,9 +33,16 @@ html, body {
   color: #f6f7ee;
 }
 
-header {
-  background: #152637;
+
+
+.example-one {
+background: #152637;
 }
+
+.example-two {
+background: #000000;
+}
+
 /*
 .example-one {
   position:absolute;
@@ -50,6 +57,7 @@ header {
 .example-three-header {
   border-radius: 3px 3px 0 0;
 }
+
 
 .example-three nav {
   background: #727c87;
