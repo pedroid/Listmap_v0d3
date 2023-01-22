@@ -198,8 +198,24 @@ function get_landmarks_by_story_id(story_id) {
         console.log(data);
         console.log(story_id);
 
+		newformat_data = JSON.parse(data);		
+		data_json_landmarks_by_story = {"table":[]};
+		for(var i in newformat_data){
+			if(i==0)continue;
+			data_json_landmarks_by_story.table.push(			
+				{
+					lat:newformat_data[i][6],
+					lng:newformat_data[i][7],
+					name:newformat_data[i][0],
+					notes:newformat_data[i][4],
+					link:newformat_data[i][9],
+					landmark_id:newformat_data[i][1],
+				}				
+			)
+		}		
 
-        data_json_landmarks_by_story = JSON.parse(data);
+
+        //data_json_landmarks_by_story = JSON.parse(data);
 
         //dbg = data_json_landmarks_by_story;
         var gps_locations = [];

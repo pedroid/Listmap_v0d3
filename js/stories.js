@@ -1,6 +1,3 @@
-var appUrl = 'https://script.google.com/macros/s/AKfycby-gL9w_PIzt4TDnqfpErNP1YTck93p4j7z1FTpt52bCkryg5Iu/exec';
-var sheetsUrl = 'https://docs.google.com/spreadsheets/d/1GNvkC8t3xua_ibN2GnnXJi-MXasuX5SXb4y1G6idFSc/edit#gid=1023127248';
-//https://docs.google.com/spreadsheets/d/1GNvkC8t3xua_ibN2GnnXJi-MXasuX5SXb4y1G6idFSc/edit?usp=sharing
 var sheetName = 'landmarks';
 
 StoriesDict = {}
@@ -16,8 +13,7 @@ $(document).ready(
             i18n
         }).$mount('#dropdown')
         $('#text-input-story').keydown(function(e) {
-            if(e.which == 13) {
-                // Enter was pressed. Run your code.
+            if(e.which == 13) {// Enter was pressed. Run your code.                
                 story_content = $('#text-input-story').val().trim();
                 //$('#text-input-story').val("");
                 $(this).val('').focus();
@@ -133,7 +129,28 @@ $(document).ready(
         $.get(appUrl, parameter, function(data) {
             $('#status').html('')
             console.log(data);
-            data_json = JSON.parse(data);
+
+			var newformat_data = JSON.parse(data);
+			var data_json = {"table":[]};
+			for(var i in newformat_data){
+				if(i==0)continue
+				data_json.table.push(
+					{
+						"title":newformat_data[i][0],
+						"story_id":newformat_data[i][1],
+						"type_":newformat_data[i][2],
+						"link":newformat_data[i][3],
+						"author":newformat_data[i][4],
+						"tags":newformat_data[i][5],
+						"gpstory":newformat_data[i][6],
+						"update_time_stamp":newformat_data[i][7],
+						"is_delete":newformat_data[i][8],
+					}
+				);
+
+			}
+
+            //data_json = JSON.parse(data);
             $('#TagList ul').append("<b>authors</b>");
             for (i in data_json.table_authors){
               //console.log(data_json.table_authors[i].tag);

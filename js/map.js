@@ -91,7 +91,7 @@ function pngMap(){
   img.src = 'https://i.imgur.com/x3Wf4tF.jpg';
 }
 function initMap() {
-  
+
     //mymap = L.map('map').setView([25.1130643, 121.5227629], 7);
     //console.log('test');
     var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -237,7 +237,8 @@ function initGMap() {
 }
 function UpdateMap(locations, sid) {
     console.log('UpdateMap');
-
+    console.log(locations);
+    console.log(sid);
 
     var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

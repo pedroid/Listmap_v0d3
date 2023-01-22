@@ -704,7 +704,7 @@ function initMap() {
             $.get(appUrl, {
                 url: sheetsUrl,
                 name: sheetName,
-                command: "getGPSByZone",
+                command: "get_landmarks_by_zone",
                 lat_south: south,
                 lat_north: north,
                 lng_west: west,

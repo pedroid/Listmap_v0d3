@@ -15,6 +15,7 @@
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 			<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
 <link rel="stylesheet" href="css/find_stories_m.css">
+<script src="js/apps.js"></script>
 <script src="js/find_stories_m.js"></script>
 <script src="js/map.js"></script>
 	<style>body { padding: 0; margin: 0; } #map { height: 100%; width: 100vw; }</style>
@@ -139,8 +140,7 @@ function onLocationError(e) {
 mymap.on('locationerror', onLocationError);
 mymap.on('locationfound', onLocationFound);
 mymap.locate({setView: true, maxZoom: 16});
-var appUrl = 'https://script.google.com/macros/s/AKfycby-gL9w_PIzt4TDnqfpErNP1YTck93p4j7z1FTpt52bCkryg5Iu/exec';
-var sheetsUrl = 'https://docs.google.com/spreadsheets/d/1GNvkC8t3xua_ibN2GnnXJi-MXasuX5SXb4y1G6idFSc/edit#gid=1023127248';
+
 
 var sheetName = 'landmarks';
 
@@ -159,6 +159,7 @@ function clean_map() {
 });
 }
 function addStoriesToLayer(landmarks) {
+		console.log(landmarks);
     //mymap.removeLayer(global_markers);
     var markers = L.markerClusterGroup();
 		var icons = {};
@@ -300,18 +301,75 @@ mymap.on('moveend', function() {
 				$.get(appUrl, {
 						url: sheetsUrl,
 						name: sheetName,
-						command: "getGPSByZone",
+						command: "get_landmarks_by_zone",
 						lat_south: south,
 						lat_north: north,
 						lng_west: west,
 						lng_east: east
 				}, function(data) {
+/*
+new_format_data_json = JSON.parse(data);
+console.log(new_format_data_json);
+var gps_locations = [];
+var landmarks = {};
+data_json = {
+	'table':{},
+	'table_stories':{}
+};
 
-						data_json = JSON.parse(data);
-						console.log(data_json)
-						var gps_locations = [];
+for (var i in new_format_data_json.stories){
+	if(i==0)continue;
+	data_json.table_stories[i] = new_format_data_json.stories[i][0];
+}
+
+for (var i in new_format_data_json.landmarks){
+		if(i==0){
+			continue;
+		}else{
+				data_json.table[i] = {
+					story_id : new_format_data_json.landmarks[i][11],
+					lat_lng : new_format_data_json.landmarks[i][6] + ',' + new_format_data_json.landmarks[i][7],
+					name:new_format_data_json.landmarks[i][0],
+					content:new_format_data_json.landmarks[i][4],
+					link:new_format_data_json.landmarks[i][9],
+					landmark_id:new_format_data_json.landmarks[i][1],
+					notes:new_format_data_json.landmarks[i][4],
+				}
+		//console.log(data_json.table);
+		}
+
+*/
+						new_format_data_json = JSON.parse(data);
+						//data_json = JSON.parse(data);
+						//console.log(data_json)
+						gps_locations = [];
 						var landmarks = {};
-						for (i in data_json.table){
+						data_json = {
+							'table':{},
+							'table_stories':{}
+						};
+
+						for (var i in new_format_data_json.stories){
+							if(i==0)continue;
+							data_json.table_stories[i] = new_format_data_json.stories[i][0];
+						}
+
+						for (var i in new_format_data_json.landmarks){
+								if(i==0){
+									continue;
+								}else{
+										data_json.table[i] = {
+											story_id : new_format_data_json.landmarks[i][11],
+											lat_lng : new_format_data_json.landmarks[i][6] + ',' + new_format_data_json.landmarks[i][7],
+											name:new_format_data_json.landmarks[i][0],
+											content:new_format_data_json.landmarks[i][4],
+											link:new_format_data_json.landmarks[i][9],
+											landmark_id:new_format_data_json.landmarks[i][1],
+											notes:new_format_data_json.landmarks[i][4],
+											tags:new_format_data_json.landmarks[i][2],
+										}
+								//console.log(data_json.table);
+								}
 								if(typeof(landmarks[data_json.table[i].story_id])=="undefined"){
 									landmarks[data_json.table[i].story_id] = [];
 									landmarks[data_json.table[i].story_id].push(data_json.table[i]);

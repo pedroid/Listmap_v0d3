@@ -1,5 +1,3 @@
-var appUrl = 'https://script.google.com/macros/s/AKfycby-gL9w_PIzt4TDnqfpErNP1YTck93p4j7z1FTpt52bCkryg5Iu/exec';
-var sheetsUrl = 'https://docs.google.com/spreadsheets/d/1GNvkC8t3xua_ibN2GnnXJi-MXasuX5SXb4y1G6idFSc/edit#gid=1023127248';
 
 var sheetName = 'landmarks';
 parameter = {
@@ -723,18 +721,45 @@ function initMap() {
             $.get(appUrl, {
                 url: sheetsUrl,
                 name: sheetName,
-                command: "getGPSByZone",
+                command: "get_landmarks_by_zone",
                 lat_south: south,
                 lat_north: north,
                 lng_west: west,
                 lng_east: east
             }, function(data) {
                 $('#DivStoriesList').empty();
-                data_json = JSON.parse(data);
-                console.log(data_json)
+                new_format_data_json = JSON.parse(data);
+                console.log(new_format_data_json);
                 var gps_locations = [];
                 var landmarks = {};
-                for (i in data_json.table){
+                data_json = {
+                  'table':{},
+                  'table_stories':{}
+                };
+
+                for (var i in new_format_data_json.stories){
+                  if(i==0)continue;
+                  data_json.table_stories[i] = new_format_data_json.stories[i][0];
+                }
+
+                for (var i in new_format_data_json.landmarks){
+                    if(i==0){
+                      continue;
+                    }else{
+                        data_json.table[i] = {
+                          story_id : new_format_data_json.landmarks[i][11],
+                          lat_lng : new_format_data_json.landmarks[i][6] + ',' + new_format_data_json.landmarks[i][7],
+                          name:new_format_data_json.landmarks[i][0],
+                          content:new_format_data_json.landmarks[i][4],
+                          link:new_format_data_json.landmarks[i][9],
+                          landmark_id:new_format_data_json.landmarks[i][1],
+                          notes:new_format_data_json.landmarks[i][4],
+                        }
+                    //console.log(data_json.table);
+                    }
+
+
+
                     if(typeof(landmarks[data_json.table[i].story_id])=="undefined"){
                       landmarks[data_json.table[i].story_id] = [];
                       landmarks[data_json.table[i].story_id].push(data_json.table[i]);

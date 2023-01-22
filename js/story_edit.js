@@ -1,6 +1,4 @@
-//$.getScript('http://www.youtube.com/iframe_api');
-var appUrl = 'https://script.google.com/macros/s/AKfycby-gL9w_PIzt4TDnqfpErNP1YTck93p4j7z1FTpt52bCkryg5Iu/exec';
-var sheetsUrl = 'https://docs.google.com/spreadsheets/d/1GNvkC8t3xua_ibN2GnnXJi-MXasuX5SXb4y1G6idFSc/edit#gid=1023127248';
+
 //https://docs.google.com/spreadsheets/d/1GNvkC8t3xua_ibN2GnnXJi-MXasuX5SXb4y1G6idFSc/edit?usp=sharing
 var sheetName = 'landmarks';
 var scriptUrl = 'https:\/\/www.youtube.com\/s\/player\/87b9576a\/www-widgetapi.vflset\/www-widgetapi.js';
@@ -286,17 +284,16 @@ $(document).ready(
                         }
                         output_reg = '';
 
-
                         for (var i in data_json.landmarks) {
                             //console.log(i);
                             if (i != 0) {
                                 var name = data_json.landmarks[i][0];
-                                var landmark_tags = data_json.landmarks[i][1];
-                                var notes = data_json.landmarks[i][3];
-                                var lat_lng = data_json.landmarks[i][5];
-                                var landmark_id = data_json.landmarks[i][9];
-                                var is_delete = data_json.landmarks[i][6];
-                                var landmark_link = String(data_json.landmarks[i][8]);
+                                var landmark_tags = data_json.landmarks[i][2];
+                                var notes = data_json.landmarks[i][4];
+                                var lat_lng = data_json.landmarks[i][6]+','+data_json.landmarks[i][7];
+                                var landmark_id = data_json.landmarks[i][1];
+                                var is_delete = data_json.landmarks[i][8];
+                                var landmark_link = String(data_json.landmarks[i][9]);
                                 var num_landmark_links = landmark_link.split(',').length;
                                 var str_link = '';
                                 for(var landmark_link_i = 0; landmark_link_i<num_landmark_links; landmark_link_i++){
@@ -320,7 +317,7 @@ $(document).ready(
                         switch (story_type_) {
                             case 'youtube':
                                 $('#webpage_id').hide();
-                                get_landmarks_by_story_id(0);
+                                get_landmarks_by_story_id(1);
                                 break;
                             case 'webpage':
                                 console.log('webpage');
@@ -749,7 +746,10 @@ function get_landmarks_by_story_id(story_id) {
         //console.log(content_reg)
         test_str = '#collapse_' + story_id;
         $('#collapse_ul_' + story_id).html(content_reg);
+        console.log(gps_locations);
+        console.log(story_id);
         UpdateMap(gps_locations, story_id);
+
 
         let markerIcon = document.querySelectorAll('.leaflet-marker-icon')
         let markerShadow = document.querySelectorAll('.leaflet-marker-shadow')
