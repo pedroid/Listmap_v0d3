@@ -13,7 +13,7 @@ $(document).ready(
             i18n
         }).$mount('#dropdown')
         $('#text-input-story').keydown(function(e) {
-            if(e.which == 13) {// Enter was pressed. Run your code.                
+            if(e.which == 13) {// Enter was pressed. Run your code.
                 story_content = $('#text-input-story').val().trim();
                 //$('#text-input-story').val("");
                 $(this).val('').focus();
@@ -32,6 +32,7 @@ $(document).ready(
                   $('#status').html('processing...')
                   $.get(appYoutube, function(data) {
                       $('#status').html('');
+                      console.log(data);
                       //tmp = data;
                       youtube_title = data.items[0].snippet.title;
                       youtube_channel = data.items[0].snippet.channelTitle;
@@ -41,7 +42,8 @@ $(document).ready(
                       //get_landmarks_by_story_id(0);
                       data_to_append.type_ = 'youtube';
                       data_to_append.title = youtube_title
-
+                      var current = new Date();
+                      
                       var parameter = {
                           url: sheetsUrl,
                           command: "new_story",
@@ -50,8 +52,10 @@ $(document).ready(
                           link: "https://www.youtube.com/watch?v=" + videoId,
                           //landmarks: JSON.stringify(landmarks_json),
                           author: youtube_channel,
-                          tags:''
+                          tags:'',
+                          update_timestamp:current.toString(),
                       }
+                      console.log(parameter);
                       $('#status').html('processing...')
                       $.post(appUrl, parameter, function(data) {
                           $('#status').html('');

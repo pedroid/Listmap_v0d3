@@ -269,6 +269,7 @@ function UpdateMap(locations, sid) {
 
     let markerIcon = document.querySelectorAll('.leaflet-marker-icon')
     let markerShadow = document.querySelectorAll('.leaflet-marker-shadow')
+
     genInput.addEventListener('click', function() {
         let id = genInput.id.replace('genInput', '')
         let val = genInput.checked
@@ -288,7 +289,10 @@ function UpdateMap(locations, sid) {
             GotoStory(id, val)
             console.log(markerIcon.length)
         }
-    })
+    }
+    
+
+  )
 
     ZoomToGroup(locations)
 

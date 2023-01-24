@@ -256,7 +256,7 @@ $(document).ready(
                     $.get(appUrl, parameter, function(data) {
                         $('#status').html('')
                         data_json = JSON.parse(data);
-                        console.log(data);
+                        console.log(data_json);
                         var link = data_json.story[1][3];
                         story_link = data_json.story[1][3];
                         story_type_ = data_json.story[1][2];
@@ -559,7 +559,7 @@ function str2view(content) {
             //console.log(cmd_list);
             cmd_list.shift();
             var content = cmd_list.join(' ');
-            console.log(content);
+            //console.log(content);
             debug = content;
             if(header == 'lat_lng'){
                 if(content.includes('www.google.com')){

@@ -739,7 +739,7 @@ function initMap() {
 
                 for (var i in new_format_data_json.stories){
                   if(i==0)continue;
-                  data_json.table_stories[i] = new_format_data_json.stories[i][0];
+                  data_json.table_stories[new_format_data_json.stories[i][1]] = new_format_data_json.stories[i][0];
                 }
 
                 for (var i in new_format_data_json.landmarks){
