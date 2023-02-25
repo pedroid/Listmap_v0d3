@@ -25,7 +25,7 @@ $(document).ready(
                   var data_to_append = {}
                   data_to_append.title = story_content;
                   data_to_append.type_ = '';
-                  append_stories_list(DivStoriesListQuery, data_to_append, 'prepend')
+                  append_stories_list(DivStoriesListQuery, data_to_append, 'append')
                 }else if(story_content.includes('www.youtube.com')){
                   videoId = story_content.split("&")[0].split("=")[1];//https://www.youtube.com/watch?v=dtXONHulWcA&bls
                   var appYoutube = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + videoId + '&key=AIzaSyCsiStpIlMr_0RhLo9gvJ_gUjjpCRvPXmk'
@@ -43,7 +43,7 @@ $(document).ready(
                       data_to_append.type_ = 'youtube';
                       data_to_append.title = youtube_title
                       var current = new Date();
-                      
+
                       var parameter = {
                           url: sheetsUrl,
                           command: "new_story",
@@ -61,7 +61,7 @@ $(document).ready(
                           $('#status').html('');
                           console.log(data);
                           data_to_append.story_id = data;
-                          append_stories_list(DivStoriesList, data_to_append, 'prepend')
+                          append_stories_list(DivStoriesList, data_to_append, 'append')
                       });
 
                   })
@@ -83,7 +83,7 @@ $(document).ready(
                   $.post(appUrl, parameter, function(data) {
                       $('#status').html('');
                       console.log(data);
-                      append_stories_list(DivStoriesList, data_to_append, 'prepend')
+                      append_stories_list(DivStoriesList, data_to_append, 'append')
                   });
 
                 }else{
@@ -104,7 +104,7 @@ $(document).ready(
                       $('#status').html('');
                       console.log(data);
                       data_to_append.story_id = data;
-                      append_stories_list(DivStoriesList, data_to_append, 'prepend')
+                      append_stories_list(DivStoriesList, data_to_append, 'append')
                   });
 
                 }
@@ -168,7 +168,7 @@ $(document).ready(
               }
             }
             for (i in data_json.table) {
-                append_stories_list(DivStoriesList, data_json.table[i], 'prepend')
+                append_stories_list(DivStoriesList, data_json.table[i], 'append')
                 switch(data_json.table[i].type_){
                   case 'podcast':
                     StoriesDict[data_json.table[i].story_id] = {

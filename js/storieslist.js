@@ -94,8 +94,9 @@ function seekto(story_id, time) {
 
 }
 
-function append_stories_list(div_id_to_add, data_to_append, where_to_add, id_div) {
+function append_stories_list(div_id_to_add, data_to_append, where_to_add) {
     //console.log(data_to_append);
+    console.log('storieslist.js')
     myapp_what = data_to_append.what;
     myapp_where = data_to_append.where;
     myapp_title = data_to_append.title;
@@ -173,8 +174,11 @@ function append_stories_list(div_id_to_add, data_to_append, where_to_add, id_div
 
     //console.log(html_reg);
     if (where_to_add == 'prepend') {
+        console.log('prepend')
         $(div_id_to_add).prepend(html_reg);
-    } else if (where_to_ad == 'append') {
+    } else if (where_to_add == 'append') {
+      console.log('append')
+      $(div_id_to_add).append(html_reg);
         //$(div_id_to_append).
     }
 
@@ -198,11 +202,11 @@ function get_landmarks_by_story_id(story_id) {
         console.log(data);
         console.log(story_id);
 
-		newformat_data = JSON.parse(data);		
+		newformat_data = JSON.parse(data);
 		data_json_landmarks_by_story = {"table":[]};
 		for(var i in newformat_data){
 			if(i==0)continue;
-			data_json_landmarks_by_story.table.push(			
+			data_json_landmarks_by_story.table.push(
 				{
 					lat:newformat_data[i][6],
 					lng:newformat_data[i][7],
@@ -210,9 +214,9 @@ function get_landmarks_by_story_id(story_id) {
 					notes:newformat_data[i][4],
 					link:newformat_data[i][9],
 					landmark_id:newformat_data[i][1],
-				}				
+				}
 			)
-		}		
+		}
 
 
         //data_json_landmarks_by_story = JSON.parse(data);
@@ -268,7 +272,7 @@ function get_landmarks_by_story_id(story_id) {
             for (i in data_json_landmarks_by_story.table) {
                 if (typeof(data_json_landmarks_by_story.table[i].lat) == 'undefined' | data_json_landmarks_by_story.table[i].lat == '') continue;
                 //console.log(data_json_landmarks_by_story.table[i].landmark_id);
-                gps_locations.push({
+                gps_locations.unshift({
                     lat: data_json_landmarks_by_story.table[i].lat,
                     lng: data_json_landmarks_by_story.table[i].lng,
                     name: data_json_landmarks_by_story.table[i].name,

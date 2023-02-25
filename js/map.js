@@ -7,6 +7,22 @@ function flyto(lat, lng){
   })
 
 }
+
+function draw_line(latlngs=[ [45.51, -122.68], [37.77, -122.43], [34.04, -118.2] ]){
+  // create a red polyline from an array of LatLng points
+  /*
+var latlngs = [
+    [45.51, -122.68],
+    [37.77, -122.43],
+    [34.04, -118.2]
+];
+*/
+
+var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
+
+// zoom the map to the polyline
+mymap.fitBounds(polyline.getBounds());
+}
 var map_is_home = false;
 var home_gps_lat = 22.630114
 var home_gps_lng = 120.313253
@@ -290,7 +306,7 @@ function UpdateMap(locations, sid) {
             console.log(markerIcon.length)
         }
     }
-    
+
 
   )
 
