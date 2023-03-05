@@ -25,7 +25,7 @@ $(document).ready(
                   var data_to_append = {}
                   data_to_append.title = story_content;
                   data_to_append.type_ = '';
-                  append_stories_list(DivStoriesListQuery, data_to_append, 'append')
+                  append_stories_list(DivStoriesListQuery, data_to_append, 'prepend')
                 }else if(story_content.includes('www.youtube.com')){
                   videoId = story_content.split("&")[0].split("=")[1];//https://www.youtube.com/watch?v=dtXONHulWcA&bls
                   var appYoutube = 'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' + videoId + '&key=AIzaSyCsiStpIlMr_0RhLo9gvJ_gUjjpCRvPXmk'
@@ -61,7 +61,7 @@ $(document).ready(
                           $('#status').html('');
                           console.log(data);
                           data_to_append.story_id = data;
-                          append_stories_list(DivStoriesList, data_to_append, 'append')
+                          append_stories_list(DivStoriesList, data_to_append, 'prepend')
                       });
 
                   })
@@ -79,11 +79,12 @@ $(document).ready(
                       author: "",
                       tags:''
                   }
+
                   $('#status').html('processing...')
                   $.post(appUrl, parameter, function(data) {
                       $('#status').html('');
                       console.log(data);
-                      append_stories_list(DivStoriesList, data_to_append, 'append')
+                      append_stories_list(DivStoriesList, data_to_append, 'prepend')
                   });
 
                 }else{
@@ -104,7 +105,7 @@ $(document).ready(
                       $('#status').html('');
                       console.log(data);
                       data_to_append.story_id = data;
-                      append_stories_list(DivStoriesList, data_to_append, 'append')
+                      append_stories_list(DivStoriesList, data_to_append, 'prepend')
                   });
 
                 }
@@ -200,7 +201,7 @@ $(document).ready(
 
 
 function search_by_keyword(){
-  console.log('search');
+  console.log('function:'+arguments.callee.name);
   var keyword = $('#text-input-search').val();
   get_stories_by_keyword(keyword);
 }

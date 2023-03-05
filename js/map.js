@@ -389,7 +389,7 @@ function ShowHideMarker(input, loc, opt) {
 }
 
 function SingleZoom(name, loc) {
-    console.log('SingleZoom');
+    console.log('function:'+arguments.callee.name);
     name.addEventListener('click', () => {
 
         mymap.flyTo(loc._latlng, 18, {

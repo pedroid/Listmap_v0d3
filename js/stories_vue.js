@@ -45,7 +45,7 @@ new Vue({ i18n }).$mount('#dropdown')
 
 
 function ShowHideMarker(input, loc,opt) {
-
+    console.log('function:'+arguments.callee.name);
     input.addEventListener('click', () => {
         if (input.checked === false) {
             mymap.removeLayer(loc)
@@ -56,6 +56,7 @@ function ShowHideMarker(input, loc,opt) {
 }
 
 function SingleZoom(name, loc) {
+    console.log('function:'+arguments.callee.name);
     name.addEventListener('click', () => {
         mymap.flyTo(loc._latlng, 16, {
             animate: true,
@@ -65,7 +66,7 @@ function SingleZoom(name, loc) {
 }
 
 function ZoomToGroup(coor) {
-
+    console.log('function:'+arguments.callee.name);
     var markers = L.markerClusterGroup();
     //var landmarks_layergroup = L.layerGroup();
 
